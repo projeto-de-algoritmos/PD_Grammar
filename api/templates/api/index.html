@@ -35,33 +35,40 @@
                            <div class="card-header">
                              <h3 class="card-title">Digite o texto abaixo</h3>
                            </div>
-                           <form method="post">
+                           <form method="post" id="textCheckForm">
                               {% csrf_token %}
                               <div class="card-body">
-                                 <textarea class="form-control" rows="5" placeholder="Digite aqui!">Olá mundo
-Progrmar é diivetdo.
-                                 </textarea>
+                                 {{ form.word }}
                               </div>
                               <div class="card-footer">
                                  <button type="submit" class="btn btn-success">Checar</button>
-                                 <button type="reset" class="btn btn-warning">Limpar</button>
-                               </div>
-                           </form>
+                                 <button name="limpar" value="True" type="submit" class="btn btn-primary">Limpar</button>
+                              </div>
+                          </form>
                          </div>
                      </div>
-                     {% comment %} {% if resultado %} {% endcomment %}
-                        <div class="col-lg-6">
-                           <div class="card card-success">
-                              <div class="card-header">
-                              <h3 class="card-title">Resultado</h3>
-                              </div>
-                              <div class="card-body">
-                                 <p class="text-success">Seu texto parece correto.</p>
-                                 <p class="text-danger">Você quis dizer "<strong>Programar é divertido</strong>"?</p>
-                                 </div>
-                              </div>
+                     <div class="col-lg-6">
+                        <div class="card card-success">
+                            <div class="card-header">
+                                <h3 class="card-title">Resultado</h3>
+                            </div>
+                            <div class="card-body">
+                                 {% if form.errors %}
+                                    {% for field in form %}
+                                       {% for error in field.errors %}
+                                          <p class="text-danger"><strong>{{ error }}</strong></p>
+                                       {% endfor %}
+                                    {% endfor %}
+                                 {% else %}
+                                    {% if closest_word %}
+                                          <p class="text-danger">Você quis dizer "<strong>{{ closest_word }}</strong>"?</p>
+                                    {% else %}
+                                          <p class="text-success">Seu texto parece correto.</p>
+                                    {% endif %}
+                                 {% endif %}
+                            </div>
                         </div>
-                     {% comment %} {% endif %} {% endcomment %}
+                    </div>
                   </div>
                </div>
             </div>
