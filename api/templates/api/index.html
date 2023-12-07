@@ -1,82 +1,123 @@
 <!DOCTYPE html>
 <html lang="en">
-   <head>
-      <style>
-         .checkbox-scroll {
-             max-height: 65vh;
-             overflow-y: auto;
-         }
-     </style>
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>Grammar</title>
-      {% load static %}
-      <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-      <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
-      <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
-   </head>
-   <body class="hold-transition sidebar-mini">
-      <div class="wrapper">
-         <div class="content-wrapper" style="margin-left: 0;">
+
+<head>
+    <style>
+        .checkbox-scroll {
+            max-height: 65vh;
+            overflow-y: auto;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Grammar</title>
+    {% load static %}
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="{% static 'plugins/fontawesome-free/css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'dist/css/adminlte.min.css' %}">
+</head>
+
+<body class="hold-transition sidebar-mini">
+    <div class="wrapper">
+        <div class="content-wrapper" style="margin-left: 0;">
             <div class="content-header">
-               <div class="container-fluid">
-                  <div class="row mb-2">
-                     <div class="col-sm-12">
-                        <h1 class="m-0">Grammar</h1>
-                     </div>
-                  </div>
-               </div>
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-12">
+                            <h1 class="m-0">Grammar</h1>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="content">
-               <div class="container-fluid">
-                  <div class="row">
-                     <div class="col-lg-6">
-                        <div class="card card-primary">
-                           <div class="card-header">
-                             <h3 class="card-title">Digite o texto abaixo</h3>
-                           </div>
-                           <form method="post" id="textCheckForm">
-                              {% csrf_token %}
-                              <div class="card-body">
-                                 {{ form.word }}
-                              </div>
-                              <div class="card-footer">
-                                 <button type="submit" class="btn btn-success">Checar</button>
-                                 <button name="limpar" value="True" type="submit" class="btn btn-primary">Limpar</button>
-                              </div>
-                          </form>
-                         </div>
-                     </div>
-                     <div class="col-lg-6">
-                        <div class="card card-success">
-                            <div class="card-header">
-                                <h3 class="card-title">Resultado</h3>
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card card-primary">
+                                <form method="post" id="textCheckForm">
+                                    {% csrf_token %}
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">Digite o texto abaixo</h3>
+                                        </div>
+                                        <div class="card-body">
+                                            {{ form.word }}
+                                        </div>
+                                        <div class="card-footer">
+                                            <button type="submit" class="btn btn-success">Checar</button>
+                                            <button name="limpar" value="True" type="submit"
+                                                class="btn btn-primary">Limpar</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Digite o valor desejado para o custo do gap
+                                                    </h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    {{ form.gap_cost }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Digite o valor desejado para a distância
+                                                        máxima das palavras</h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    {{ form.max_diff }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                            <div class="card-body">
-                                 {% if form.errors %}
-                                    {% for field in form %}
-                                       {% for error in field.errors %}
-                                          <p class="text-danger"><strong>{{ error }}</strong></p>
-                                       {% endfor %}
-                                    {% endfor %}
-                                 {% else %}
-                                    {% if closest_word %}
-                                          <p class="text-danger">Você quis dizer "<strong>{{ closest_word }}</strong>"?</p>
-                                    {% else %}
-                                          <p class="text-success">Seu texto parece correto.</p>
-                                    {% endif %}
-                                 {% endif %}
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card card-success">
+                                <div class="card-header">
+                                    <h3 class="card-title">Resultado</h3>
+                                </div>
+                                <div class="card-body">
+                                     {% if form.errors %}
+                                        {% for field in form %}
+                                           {% for error in field.errors %}
+                                              <p class="text-danger"><strong>{{ error }}</strong></p>
+                                           {% endfor %}
+                                        {% endfor %}
+                                     {% else %}
+                                        {% if closest_word %}
+                                              <p class="text-danger">Você quis dizer "<strong>{{ closest_word }}</strong>"?</p>
+                                        {% else %}
+                                              <p class="text-success">Seu texto parece correto.</p>
+                                        {% endif %}
+                                     {% endif %}
+                                </div>
+                            </div>
+                            <div class="card card-primary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Benchmarks</h3>
+                                </div>
+                                <div class="card-body">
+                                    <h3><strong>Tempo gasto: {{ time_passed }} </strong></h3>
+                                    <h3><strong>Total de nós visitados na Trie: {{ visited_nodes }}</strong></h3>
+                                </div>
                             </div>
                         </div>
                     </div>
-                  </div>
-               </div>
+                </div>
             </div>
-         </div>
-         <footer class="main-footer"></footer>
-      </div>
-      <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
-      <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-      <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
-   </body>
+        </div>
+        <footer class="main-footer"></footer>
+    </div>
+    <script src="{% static 'plugins/jquery/jquery.min.js' %}"></script>
+    <script src="{% static 'plugins/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <script src="{% static 'dist/js/adminlte.min.js' %}"></script>
+</body>
+
 </html>
