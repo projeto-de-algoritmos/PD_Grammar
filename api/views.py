@@ -3,9 +3,9 @@ from .util import auto_correct, get_mismatch_dict
 from .forms import TextCheckForm
 import time
 
-def readDict(word_length):
+def readDict(first_letter):
     # with open('dictionaries/br-utf8.txt', 'r') as f:
-    with open(f"dictionaries/words_len_{word_length}.txt", "r") as f:
+    with open(f"dictionaries/words_by_first_letter/words_letter_{first_letter}.txt", "r") as f:
         word_dict = f.read().splitlines()
     return word_dict
 
@@ -28,7 +28,7 @@ def index(request):
             print("starting tokens")
             start_time = time.time()
             for token in input_word.split():
-                word_dict = readDict(len(token))
+                word_dict = readDict(token[0])
                 tokens[token] = auto_correct(token, word_dict, gap_weight, mismatch_dict)
             print(tokens)
             print(time.time() - start_time)
