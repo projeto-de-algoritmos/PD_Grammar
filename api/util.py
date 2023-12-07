@@ -19,6 +19,7 @@ def levenshtein_distance(str1, str2, gap, mismatchs_dict):
     # Cálculo da distância de edição
     for i in range(1, len_str1):
         for j in range(1, len_str2):
+            print(str1, str2)
             matrix[i][j] = min(
                 matrix[i - 1][j - 1] + mismatchs_dict.get((str1[i - 1], str2[j - 1])),  # Mismatch
                 matrix[i][j - 1] + gap,                # Gap em str1
@@ -44,8 +45,8 @@ def auto_correct(word, word_list, gap, mismatchs_dict):
 def get_mismatch_dict():
     # Criação do dicionário de pesos de mismatch
     keyboard = [
-        ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p'],
-        ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ç'],
+        ['q', 'w', 'e', 'é', 'ê','r', 't', 'y', 'u', 'ú', 'i', 'í', 'o', 'ó', 'ô','õ', 'p'],
+        ['a', 'ã', 'á', 'à', 'â', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ç'],
         ['z', 'x', 'c', 'v', 'b', 'n', 'm']
     ]
 
