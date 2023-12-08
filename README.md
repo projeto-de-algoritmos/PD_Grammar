@@ -14,15 +14,15 @@
 **Grammar** é um projeto desenvolvido em python para o módulo de Programação Dinâmica, cujo propósito é realizar a correção ortográfica de uma determinada cadeia de caracteres a partir de um dataset de palavras da língua portuguesa e o algoritmo de **Alinhamento de Sequências**.
 
 ## Screenshots
-### Tela inicial
-<!-- ![tela1](assets/tela1.png) -->
+### Exemplo 1: entrada ortograficamente correta
+![ex1](assets/texto_correto.gif)
 
-<!-- <p align="center">Imagem 1: Tela inicial do site (Fonte: autores, 2023).</p> -->
+<p align="center">Imagem 1: Testando o algoritmo com entrada ortograficamente correta (Fonte: autores, 2023).</p>
 
-### Tela de resultado
-<!-- ![tela2](assets/tela2.jpg) -->
+### Exemplo 2: entrada com erros ortográficos
+![ex2](assets/texto_erros.gif)
 
-<!-- <p align="center">Imagem 2: Tela de resultado da grade (Fonte: autores, 2023).</p> -->
+<p align="center">Imagem 2: Testando o algoritmo com entrada ortograficamente incorreta (Fonte: autores, 2023).</p>
 
 ## Instalação 
 
