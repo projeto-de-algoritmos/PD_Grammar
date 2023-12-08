@@ -93,7 +93,7 @@
                                      {% else %}
                                         {% if closest_word %}
                                               <p class="text-danger">Você quis dizer "<strong>{{ closest_word }}</strong>"?</p>
-                                        {% else %}
+                                        {% elif time_passed %}
                                               <p class="text-success">Seu texto parece correto.</p>
                                         {% endif %}
                                      {% endif %}

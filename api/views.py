@@ -33,18 +33,25 @@ def index(request):
             form = TextCheckForm()
             form.fields["word"].initial = ''
         if form.is_valid():
-            input_word = form.cleaned_data['word'].lower()
+            input_word = form.cleaned_data['word'].lower().split()
             gap_cost = form.cleaned_data['gap_cost']
             max_diff = form.cleaned_data['max_diff']
 
             tic = time.time()
-            closest_word, visited_nodes = word_dict.auto_correct(input_word, max_diff, gap_cost)
+            tokens = {}
+            total_visited_nodes = 0
+            for token in input_word:
+                closest_word, visited_nodes = word_dict.auto_correct(token, max_diff, gap_cost)
+                tokens[token] = closest_word[0] if closest_word else ""
+                total_visited_nodes += visited_nodes
             tac = time.time()
-
+            
+            # Formatando a saída para exibição
+            formatted_output = " ".join(list(tokens.values())) if list(tokens.values()) != list(tokens.keys()) else []
+            
             # Formatando o tempo gasto em um formato legível
             time_passed = " minutos e ".join(str(datetime.timedelta(seconds=tac - tic))[2:-3].split(":")) + " segundos"
-
-            return render(request, 'api/index.html', {'form': form, 'input_word': input_word, 'closest_word': closest_word, 'time_passed': time_passed, 'visited_nodes': visited_nodes})
+            return render(request, 'api/index.html', {'form': form, 'input_word': input_word, 'closest_word': formatted_output, 'time_passed': time_passed, 'visited_nodes': total_visited_nodes})
     else:
         form = TextCheckForm()
         
