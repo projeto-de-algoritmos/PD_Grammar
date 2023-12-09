@@ -5,7 +5,7 @@ class TextCheckForm(forms.Form):
     word = forms.RegexField(regex=r'\b[A-Za-z]+\b',
                             widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
                             label='',
-                            required=False,
+                            required=True,
                             error_messages={'invalid': 'Por favor, insira apenas letras'})
 
     gap_cost = forms.IntegerField(min_value=1,
@@ -26,7 +26,7 @@ class TextCheckForm(forms.Form):
 
 
 class AddWordForm(forms.Form):
-    new_word = forms.RegexField(regex=r'\b[A-Za-z]+\b',
+    new_word = forms.RegexField(regex=r'[A-Za-z]+$',
                             widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 1}),
                             label='',
                             required=False,

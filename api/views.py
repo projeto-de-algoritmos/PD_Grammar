@@ -17,7 +17,7 @@ def readDict():
 
 def addWord(new_word):
     with open("./word_dict.txt", 'a') as f:
-        f.write(new_word  + "\n")
+        f.write(new_word + "\n")
 
     global was_dict_modified
     was_dict_modified = 1
@@ -48,6 +48,8 @@ def index(request):
             checkerForm = TextCheckForm()
             checkerForm.fields["word"].initial = ''
 
+            return render(request, 'api/index.html', {'checkerForm': checkerForm, 'adderForm': adderForm, 'input_word': input_word, 'word_count': word_dict.word_count})
+
         if checkerForm.is_valid():
             input_word = checkerForm.cleaned_data['word'].lower().split()
             gap_cost = checkerForm.cleaned_data['gap_cost']
@@ -71,15 +73,17 @@ def index(request):
             return render(request, 'api/index.html', {'checkerForm': checkerForm, 'adderForm': adderForm, 'input_word': input_word, 'closest_word': formatted_output, 'time_passed': time_passed, 'visited_nodes': total_visited_nodes, 'word_count': word_dict.word_count})
 
         if adderForm.is_valid():
-            print(adderForm.is_valid())
             new_word = adderForm.cleaned_data['new_word'].lower()
-            # if new_word:
-            addWord(new_word)
+            if new_word:
+                addWord(new_word)
 
             checkerForm = TextCheckForm()
             adderForm = AddWordForm()
 
             return render(request, 'api/index.html', {'checkerForm': checkerForm, 'adderForm': adderForm, 'word_count': word_dict.word_count})
+
+        checkerForm = TextCheckForm()
+        adderForm = AddWordForm()
 
     else:
         checkerForm = TextCheckForm()
