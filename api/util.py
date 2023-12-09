@@ -21,6 +21,16 @@ class Trie:
         node.word = word
         self.word_count += 1
 
+    def search(self, word):
+        node = self.root
+        for char in word:
+            if char not in node.children:
+                return False
+
+            node = node.children[char]
+
+        return node.word == word
+
 
     def __get_mismatch_dict(self):
         # Criação do dicionário de pesos de mismatch

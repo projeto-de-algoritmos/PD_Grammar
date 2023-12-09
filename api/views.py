@@ -19,23 +19,18 @@ def addWord(new_word):
     with open("./word_dict.txt", 'a') as f:
         f.write(new_word + "\n")
 
-    global was_dict_modified
-    was_dict_modified = 1
-
 
 word_dict = None
-was_dict_modified = 0
 
 
 def index(request):
     # Se ainda não tiver instanciado o dicionário ou
     # ele tiver sido modificado, cria uma nova instância
 
-    global word_dict, was_dict_modified
+    global word_dict
 
-    if word_dict is None or was_dict_modified:
+    if word_dict is None:
         word_dict = readDict()
-        was_dict_modified = 0
 
     closest_word = ''
     input_word = ''
@@ -74,8 +69,10 @@ def index(request):
 
         if adderForm.is_valid():
             new_word = adderForm.cleaned_data['new_word'].lower()
-            if new_word:
+            if new_word and not word_dict.search(new_word):
                 addWord(new_word)
+
+            word_dict = readDict()
 
             checkerForm = TextCheckForm()
             adderForm = AddWordForm()
