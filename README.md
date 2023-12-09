@@ -24,6 +24,11 @@
 
 <p align="center">Imagem 2: Testando o algoritmo com entrada ortograficamente incorreta (Fonte: autores, 2023).</p>
 
+### Feature: adicione as suas próprias palavras ao dicionário!
+![feature](assets/new_word.png)
+
+<p align="center">Imagem 3: Adicionando novas palavras (Fonte: autores, 2023).</p>
+
 ## Instalação 
 
 **Linguagens e frameworks**: 
