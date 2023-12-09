@@ -8,6 +8,7 @@ class Trie:
     def __init__(self):
         self.root = TrieNode()
         self.mismatch_dict = self.__get_mismatch_dict()
+        self.word_count = 0
 
     def insert(self, word):
         node = self.root
@@ -18,6 +19,8 @@ class Trie:
             node = node.children[char]
 
         node.word = word
+        self.word_count += 1
+
 
     def __get_mismatch_dict(self):
         # Criação do dicionário de pesos de mismatch

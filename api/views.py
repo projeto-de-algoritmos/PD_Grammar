@@ -51,8 +51,8 @@ def index(request):
             
             # Formatando o tempo gasto em um formato legível
             time_passed = " minutos e ".join(str(datetime.timedelta(seconds=tac - tic))[2:-3].split(":")) + " segundos"
-            return render(request, 'api/index.html', {'form': form, 'input_word': input_word, 'closest_word': formatted_output, 'time_passed': time_passed, 'visited_nodes': total_visited_nodes})
+            return render(request, 'api/index.html', {'form': form, 'input_word': input_word, 'closest_word': formatted_output, 'time_passed': time_passed, 'visited_nodes': total_visited_nodes, 'word_count': word_dict.word_count})
     else:
         form = TextCheckForm()
         
-    return render(request, 'api/index.html', {'form': form, 'input_word': input_word, 'closest_word': closest_word})
+    return render(request, 'api/index.html', {'form': form, 'input_word': input_word, 'closest_word': closest_word, 'word_count': word_dict.word_count})
