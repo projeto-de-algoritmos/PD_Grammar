@@ -2,8 +2,8 @@ from django import forms
 
 
 class TextCheckForm(forms.Form):
-    word = forms.RegexField(regex=r'\b[A-Za-z]+\b', 
-                            widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}), 
+    word = forms.RegexField(regex=r'\b[A-Za-z]+\b',
+                            widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}),
                             label='',
                             required=False,
                             error_messages={'invalid': 'Por favor, insira apenas letras'})
@@ -23,3 +23,11 @@ class TextCheckForm(forms.Form):
                                   required=True,
                                   initial=12,
                                   error_messages={'invalid': 'A distância máxima entre as palavras deve ser maior ou igual a 1'})
+
+
+class AddWordForm(forms.Form):
+    new_word = forms.RegexField(regex=r'\b[A-Za-z]+\b',
+                            widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 1}),
+                            label='',
+                            required=False,
+                            error_messages={'invalid': 'Por favor, insira apenas letras'},)

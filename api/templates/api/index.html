@@ -42,12 +42,11 @@
                                             <h3 class="card-title">Digite o texto abaixo</h3>
                                         </div>
                                         <div class="card-body">
-                                            {{ form.word }}
+                                            {{ checkerForm.word }}
                                         </div>
                                         <div class="card-footer">
                                             <button type="submit" class="btn btn-success">Checar</button>
-                                            <button name="limpar" value="True" type="submit"
-                                                class="btn btn-primary">Limpar</button>
+                                            <button name="limpar" value="True" type="submit" class="btn btn-primary">Limpar</button>
                                         </div>
                                     </div>
 
@@ -59,7 +58,7 @@
                                                     </h3>
                                                 </div>
                                                 <div class="card-body">
-                                                    {{ form.gap_cost }}
+                                                    {{ checkerForm.gap_cost }}
                                                 </div>
                                             </div>
                                         </div>
@@ -70,7 +69,26 @@
                                                         máxima das palavras</h3>
                                                 </div>
                                                 <div class="card-body">
-                                                    {{ form.max_diff }}
+                                                    {{ checkerForm.max_diff }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                                <form method="post" id="adderForm">
+                                    {% csrf_token %}
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <div class="card card-primary">
+                                                <div class="card-header">
+                                                    <h3 class="card-title">Digite uma palavra para adicionar ao dicionário
+                                                    </h3>
+                                                </div>
+                                                <div class="card-body">
+                                                    {{ adderForm.new_word }}
+                                                </div>
+                                                <div class="card-footer">
+                                                    <button type="submit" class="btn btn-success">Adicionar</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -84,19 +102,26 @@
                                     <h3 class="card-title">Resultado</h3>
                                 </div>
                                 <div class="card-body">
-                                     {% if form.errors %}
-                                        {% for field in form %}
+                                    {% if checkerForm.errors %}
+                                        {% for field in checkerForm %}
                                            {% for error in field.errors %}
                                               <p class="text-danger"><strong>{{ error }}</strong></p>
                                            {% endfor %}
                                         {% endfor %}
-                                     {% else %}
+                                    {% endif %}
+                                    {% if adderForm.errors %}
+                                    {% for field in adderForm %}
+                                        {% for error in field.errors %}
+                                            <p class="text-danger"><strong>{{ error }}</strong></p>
+                                        {% endfor %}
+                                    {% endfor %}
+                                    {% else %}
                                         {% if closest_word %}
                                               <p class="text-danger">Você quis dizer "<strong>{{ closest_word }}</strong>"?</p>
                                         {% elif time_passed %}
                                               <p class="text-success">Seu texto parece correto.</p>
                                         {% endif %}
-                                     {% endif %}
+                                    {% endif %}
                                 </div>
                             </div>
                             <div class="card card-primary">
